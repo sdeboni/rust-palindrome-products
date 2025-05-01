@@ -1,4 +1,7 @@
 // Iteration 2 inspired by iamhere2's solution with a much more efficient is_palindrome() check
+// Iteration 3 inspried by iamhere2's solution improves numeric palindrome check by quickly
+// eliminating numbers > 10 and ending with 0
+
 use std::collections::HashSet;
 
 #[derive(Debug, Clone, PartialEq, Eq)]
@@ -19,7 +22,7 @@ impl Palindrome {
 
 pub fn palindrome_products(min: u64, max: u64) -> Option<(Palindrome, Palindrome)> {
     let mut min_found = u64::MAX;
-    let mut max_found = 0_u64;
+    let mut max_found = u64::MIN;
     let mut min_factors = HashSet::<(u64, u64)>::new();
     let mut max_factors = HashSet::<(u64, u64)>::new();
 
@@ -65,6 +68,8 @@ pub fn palindrome_products(min: u64, max: u64) -> Option<(Palindrome, Palindrome
 pub fn is_palindrome(value: u64) -> bool {
     if value < 10 {
         return true;
+    } else if value % 10 == 0 {
+        return false;
     }
 
     let mut reversed = 0;
