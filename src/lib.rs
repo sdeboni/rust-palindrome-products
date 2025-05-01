@@ -1,3 +1,4 @@
+// Iteration 2 inspired by iamhere2's solution with a much more efficient is_palindrome() check
 use std::collections::HashSet;
 
 #[derive(Debug, Clone, PartialEq, Eq)]
@@ -61,24 +62,18 @@ pub fn palindrome_products(min: u64, max: u64) -> Option<(Palindrome, Palindrome
     }
 }
 
-pub fn is_palindrome(n: u64) -> bool {
-    if n < 10 {
+pub fn is_palindrome(value: u64) -> bool {
+    if value < 10 {
         return true;
     }
 
-    let mut digits = Vec::<u8>::new();
+    let mut reversed = 0;
+    let mut n = value;
 
-    let mut n = n;
     while n > 0 {
-        digits.push((n % 10) as u8);
+        reversed = reversed * 10 + n % 10;
         n /= 10;
     }
 
-    let last = digits.len() - 1;
-    for i in 0..digits.len() / 2 {
-        if digits[i] != digits[last - i] {
-            return false;
-        }
-    }
-    true
+    reversed == value
 }
