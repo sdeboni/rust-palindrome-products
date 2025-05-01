@@ -27,6 +27,9 @@ pub fn palindrome_products(min: u64, max: u64) -> Option<(Palindrome, Palindrome
     let mut max_factors = HashSet::<(u64, u64)>::new();
 
     for i in min..=max {
+        if i % 10 == 0 {
+            continue;
+        }
         for j in i..=max {
             let candidate = i * j;
             if (candidate > min_found && candidate < max_found) || !is_palindrome(candidate) {
@@ -66,9 +69,7 @@ pub fn palindrome_products(min: u64, max: u64) -> Option<(Palindrome, Palindrome
 }
 
 pub fn is_palindrome(value: u64) -> bool {
-    if value < 10 {
-        return true;
-    } else if value % 10 == 0 {
+    if value % 10 == 0 {
         return false;
     }
 
